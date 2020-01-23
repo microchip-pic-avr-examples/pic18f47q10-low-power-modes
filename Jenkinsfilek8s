@@ -14,8 +14,8 @@ pipeline {
     }
 	
 	environment {		
-		GITHUB_URL ='https://github.com/microchip-pic-avr-examples/pic18f47q10-low-power-modest.git'
-		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/ebe/pic18f47q10-low-power-modest.git'
+		GITHUB_URL ='https://github.com/microchip-pic-avr-examples/pic18f47q10-low-power-modes.git'
+		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/ebe/pic18f47q10-low-power-modes.git'
 		DEPLOY_TOOL_URL = 'https://bitbucket.microchip.com/scm/citd/tool-github-deploy.git'
 		DEPLOY_SCRIPT_DIR = 'tool-github-deploy'
 		DEPLOY_SCRIPT_FILE = 'deploy-source-as-is.sh'
