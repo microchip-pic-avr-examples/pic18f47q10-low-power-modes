@@ -1,30 +1,30 @@
 {
     "metaDataVersion": "1.0.0",
-    "category": "com.microchip.ide.project",
+    "category": "com.microchip.ide.project.",
     "content": {
         "metaDataVersion": "1.1.0",
-        "name": "com.microchip.mcu8.mplabx.project.",
-        "version": " ",
-        "displayName": "  ",
-        "projectName": "",
-        "shortDescription": "",
+        "name": "com.microchip.mcu8.mplabx.project.pic18f47q10-low-power-modes",
+        "version": "1.0.1",
+        "displayName": "Low Power Modes on PIC® Microcontrollers",
+        "projectName": "pic18f47q10-low-power-modes",
+        "shortDescription": "This example demonstrates the configuration of Doze, Idle and Sleep power down modes in PIC18F47Q10 MCU, to achieve low power consumption.",
         "ide": {
-            "name": "",
-            "semverRange": ""
+            "name": "Mplabx",
+            "semverRange": ">=5.30.0"
         },
         "compiler": [
 			{
-				"name": "",
-				"semverRange": ""
+				"name": "XC8",
+				"semverRange": "^2.10.0"
 			}
 		],
         "dfp": {
-            "name": "",
-            "semverRange": ""
+            "name": "PIC18F-Q_DFP",
+            "semverRange": "^1.3.89"
         },
         "configurator": {
-            "name": "",
-            "semverRange": ""
+            "name": "MCC",
+            "semverRange": ">=3.85.1"
         },
         "device": {
             "metaDataVersion": "1.0.0",
@@ -32,26 +32,30 @@
             "content": {
                 "metaDataVersion": "1.0.0",
                 "category": "com.microchip.device",
-                "name": "",
+                "name": "PIC18F47Q10",
                 "versionRange": "*"
             }
         },
-        "author": "",
+        "author": "Microchip",
         "subcategories": [
-            "",
+            "MCC",
             [
-               "Peripherals", ""
+               "Peripherals", "ESUART"
             ],
             [
-               "Peripherals", ""
-            ]            			
+               "Peripherals", "NVM"
+            ]
         ],
         "peripherals": [
-            "",""
+            "ESUART","NVM"
         ],
         "keywords": [
-            "",
-            ""			
+            "Power Down Modes",
+            "Power Consumption",
+            "Doze",
+            "Idle",
+            "PMD",
+            "Deep Sleep"
         ],
 		"additionalData": {
 			"longDescription": {
