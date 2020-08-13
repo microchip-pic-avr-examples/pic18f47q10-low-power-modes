@@ -1,8 +1,18 @@
 [![MCHP](images/microchip.png)](https://www.microchip.com)
 
-# Low Power Modes of PIC18F-Q10
+# Low Power Modes on PIC® Microcontrollers
 # Introduction
- The term " power down mode” refers to a condition in which a Microcontroller Unit (MCU) enters a low-power mode. The power down modes helps to reduce average power consumption of the MCU through effective management of CPU operations, clock signal to CPU and peripherals. The power down modes in PIC family of MCU’s typically comprises of Doze, Idle, Sleep and Deep sleep modes. The PIC18 Q10 family of MCU’s have three power down modes and they are Doze, Idle and Sleep mode. This example demonstrates configuration of Doze, Idle and Sleep power down modes in PIC18F47Q10 MCU, to achieve low power consumption.         
+ The term " power down mode” refers to a condition in which a Microcontroller Unit (MCU) enters a low-power mode. The power down modes helps to reduce average power consumption of the MCU through effective management of CPU operations, clock signal to CPU and peripherals. The power down modes in PIC family of MCU’s typically comprises of Doze, Idle, Sleep and Deep sleep modes. The PIC18 Q10 family of MCU’s have three power down modes and they are Doze, Idle and Sleep mode. This example demonstrates configuration of Doze, Idle and Sleep power down modes in PIC18F47Q10 MCU, to achieve low power consumption.       
+
+ # Useful Links
+- [Low-Power Design Tips & Tricks](https://mchp.us/2GuJio1)
+- [TB3144: Doze, Idle and PMD Features of 8-Bit PIC® Microcontrollers](http://bit.ly/2RRcDyk)
+- [Low Power Modes on PIC® Microcontrollers - YouTube](https://youtu.be/4QdOuG0TZic)
+- [PIC18-Q10 Product Family Page](https://www.microchip.com/design-centers/8-bit/pic-mcus/device-selection/pic18f-q10-product-family)
+- [PIC18F47Q10 Data Sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/40002043D.pdf)
+- [PIC18F47Q10 Code Examples on GitHub](https://github.com/microchip-pic-avr-examples?q=pic18f47q10-cnano)
+
+
 # Power down modes - Theory
 This section briefly discusses each of the power down mode available in PIC18 Q10 family.
 
@@ -27,7 +37,7 @@ This section discusses about System clock, CPU clock and Peripheral cock (Refer 
 
 ![clock_details](images/clock_details.jpg)
 
-  *Table 1: Clock details in Power Down modes*
+*Table 1: Clock details in Power Down modes*
 
 **Peripheral Module Disable:**
 
@@ -55,7 +65,7 @@ The Peripheral Module Disable (PMD) provides the ability to disable a peripheral
 
 With full program and debug capabilities, the PIC18F47Q10 Curiosity Nano evaluation kit offers complete support for the new design. With the award-winning MPLAB X integrated development platform and MPLAB Code Configurator (MCC), the kit provides access to the Intelligent analog and Core Independent Peripherals on the PIC18F47Q10. Figure 2 shows PIC18F47Q10 Curiosity Nano board. For more details refer to the [PIC18F47Q10 Curiosity Nano Hardware user guide](http://ww1.microchip.com/downloads/en/DeviceDoc/PIC18F47Q10-Curiosity-Nano-Hardware-User-Guide.pdf)
 
- ![curiosity_nano](images/curiosity_nano.jpg)
+![curiosity_nano](images/curiosity_nano.jpg)
 
 *Figure 2: PIC18F47Q10 Curiosity Nano board*
 
@@ -213,8 +223,6 @@ There are two methods for Hardware connection.
 
 *Figure 16: Start Data visualizer and open Power analysis window*
 
-
-
 ### Steps to open Terminal window in Data Visualizer:
 **Open the standalone Data Visualizer tool.**
 1.	In the Data Visualizer window, click on the **Configuration tab**.
@@ -227,7 +235,6 @@ There are two methods for Hardware connection.
 ![terminal](images/terminal.jpg)
 
 *Figure 17: Open terminal window in Data visualizer*
-
 
 # Demo Operation
 Instant and Window Average current consumption Explanation:
@@ -257,8 +264,7 @@ Figure 18 shows the instant current consumption of MCU at time T1 is 545.3 μA.
 
 *Figure 19: Power Analysis and Terminal window in Active mode*
 
-
-**Active mode –EEPROM Operation**
+**Active mode – EEPROM Operation**
 * Press Switch (SW0) to perform EEPROM Operation in Active mode and user needs to wait until the “Completed” text is displayed on terminal window, which indicates EEPROM Operation is completed.
 * Observe the average current consumption during EEPROM Operation in Active mode is 916.8 μA  (Refer Fig 20).
 
@@ -305,7 +311,7 @@ Figure 18 shows the instant current consumption of MCU at time T1 is 545.3 μA.
 
 *Figure 25: Power Analysis and Terminal window in Doze mode with Doze ratio 1:32*
 
-**Doze mode (Doze ratio=1:32) –EEPROM Operation**
+**Doze mode (Doze ratio=1:32) – EEPROM Operation**
 * Press Switch (SW0) to perform EEPROM Operation in Doze mode with Doze ratio 1:32.
 * During EEPROM Operation , user needs  to wait  to observe the text “Completed” on terminal window, which indicates EEPROM Operation is completed and within this time Switch press is not detected .The CPU and memory operate at only one instruction cycle out of 32  i.e. with reduced  frequency (31.2kHz) compared to the frequency used in the Doze mode with ratio 1:8 and rest of the peripherals operates at the system clock speed i.e. 1MHz frequency.
 * Observe the average current consumption during EEPROM Operation is 513.6 μA which is less than the current consumption in Doze mode with ratio 1:8.
