@@ -9,7 +9,7 @@
 - [TB3144: Doze, Idle and PMD Features of 8-Bit PIC® Microcontrollers](http://bit.ly/2RRcDyk)
 - [Low Power Modes on PIC® Microcontrollers - YouTube](https://youtu.be/4QdOuG0TZic)
 - [PIC18-Q10 Product Family Page](https://www.microchip.com/design-centers/8-bit/pic-mcus/device-selection/pic18f-q10-product-family)
-- [PIC18F47Q10 Data Sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/40002043D.pdf)
+- [PIC18F47Q10 Data Sheet](https://www.microchip.com/40002043D)
 - [PIC18F47Q10 Code Examples on GitHub](https://github.com/microchip-pic-avr-examples?q=pic18f47q10)
 
 
@@ -63,7 +63,7 @@ The Peripheral Module Disable (PMD) provides the ability to disable a peripheral
 # Hardware used
 **[PIC18F47Q10 Curiosity Nano board:](https://www.microchip.com/Developmenttools/ProductDetails/DM182029)**
 
-With full program and debug capabilities, the PIC18F47Q10 Curiosity Nano evaluation kit offers complete support for the new design. With the award-winning MPLAB X integrated development platform and MPLAB Code Configurator (MCC), the kit provides access to the Intelligent analog and Core Independent Peripherals on the PIC18F47Q10. Figure 2 shows PIC18F47Q10 Curiosity Nano board. For more details refer to the [PIC18F47Q10 Curiosity Nano Hardware user guide](http://ww1.microchip.com/downloads/en/DeviceDoc/PIC18F47Q10-Curiosity-Nano-Hardware-User-Guide.pdf)
+With full program and debug capabilities, the PIC18F47Q10 Curiosity Nano evaluation kit offers complete support for the new design. With the award-winning MPLAB X integrated development platform and MPLAB Code Configurator (MCC), the kit provides access to the Intelligent analog and Core Independent Peripherals on the PIC18F47Q10. Figure 2 shows PIC18F47Q10 Curiosity Nano board. For more details refer to the [PIC18F47Q10 Curiosity Nano Hardware user guide](https://www.microchip.com/DS40002103)
 
 ![curiosity_nano](images/curiosity_nano.jpg)
 
@@ -81,10 +81,10 @@ Power debugger is a powerful development tool used for debugging and programming
 
 # Software Tools:
 Microchip’s free MPLAB X IDE, compiler and MPLAB Code Configurator (MCC) graphical code generator are used throughout the firmware development. Following are the tool versions used for this demo application:
-* [MPLAB® X IDE v5.30](http://www.microchip.com/mplab/mplab-x-ide)
-* [XC8 Compiler v2.10](http://www.microchip.com/mplab/compilers)
+* [MPLAB® X IDE v5.30](https://www.microchip.com/mplab/mplab-x-ide)
+* [XC8 Compiler v2.10](https://www.microchip.com/mplab/compilers)
 * [MPLAB® Code Configurator (MCC) v3.85.1](https://www.microchip.com/mplab/mplab-code-configurator)
-* [MCC Device Libraries PIC10 / PIC12 / PIC16 / PIC18  MCUs v1.78.0](microchip.com/mplab/mplab-code-configurator)
+* [MCC Device Libraries PIC10 / PIC12 / PIC16 / PIC18  MCUs v1.78.0](https://www.microchip.com/mplab/mplab-code-configurator)
 * [Microchip PIC18F-Q Series Device Support 1.3.89](https://packs.download.microchip.com/)
 * [Standalone Data Visualizer 2.20.674](https://www.microchip.com/mplab/avr-support/data-visualizer)
 
