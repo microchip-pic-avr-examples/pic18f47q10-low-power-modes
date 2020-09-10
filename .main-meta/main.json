@@ -47,7 +47,7 @@
             ]
         ],
         "peripherals": [
-            "ESUART","NVM"
+            "EUSART","NVM"
         ],
         "keywords": [
             "Power Down Modes",
