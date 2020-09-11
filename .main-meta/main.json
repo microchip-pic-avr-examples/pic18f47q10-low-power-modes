@@ -4,7 +4,7 @@
     "content": {
         "metaDataVersion": "1.1.0",
         "name": "com.microchip.mcu8.mplabx.project.pic18f47q10-low-power-modes",
-        "version": "1.0.2",
+        "version": "1.0.3",
         "displayName": "Low Power Modes on PIC® Microcontrollers",
         "projectName": "pic18f47q10-low-power-modes",
         "shortDescription": "This example demonstrates the configuration of Doze, Idle and Sleep power down modes in PIC18F47Q10 MCU, to achieve low power consumption",
