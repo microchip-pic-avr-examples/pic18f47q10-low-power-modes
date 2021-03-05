@@ -1,15 +1,15 @@
 [![MCHP](images/microchip.png)](https://www.microchip.com)
 
-# Low Power Modes on PIC® Microcontrollers
+# Low Power Modes in PIC® Microcontrollers
 # Introduction
  The term " power down mode” refers to a condition in which a Microcontroller Unit (MCU) enters a low-power mode. The power down modes helps to reduce average power consumption of the MCU through effective management of CPU operations, clock signal to CPU and peripherals. The power down modes in PIC family of MCU’s typically comprises of Doze, Idle, Sleep and Deep sleep modes. The PIC18 Q10 family of MCU’s have three power down modes and they are Doze, Idle and Sleep mode. This example demonstrates configuration of Doze, Idle and Sleep power down modes in PIC18F47Q10 MCU, to achieve low power consumption.       
 
  # Useful Links
-- [Low-Power Design Tips & Tricks](https://mchp.us/2GuJio1)
-- [TB3144: Doze, Idle and PMD Features of 8-Bit PIC® Microcontrollers](http://bit.ly/2RRcDyk)
+- [Low-Power Design Tips & Tricks](https://www.microchip.com/DS01146)
+- [TB3144: Doze, Idle and PMD Features of 8-Bit PIC® Microcontrollers](https://www.microchip.com/DS90003144)
 - [Low Power Modes on PIC® Microcontrollers - YouTube](https://youtu.be/4QdOuG0TZic)
 - [PIC18-Q10 Product Family Page](https://www.microchip.com/design-centers/8-bit/pic-mcus/device-selection/pic18f-q10-product-family)
-- [PIC18F47Q10 Data Sheet](https://www.microchip.com/40002043)
+- [PIC18F47Q10 Data Sheet](https://www.microchip.com/DS40002043)
 - [PIC18F47Q10 Code Examples on GitHub](https://github.com/microchip-pic-avr-examples?q=pic18f47q10)
 
 
@@ -50,15 +50,15 @@ The Peripheral Module Disable (PMD) provides the ability to disable a peripheral
 *Figure 1: Block diagram of application demo*  
 
   In this demo,
-*    PIC18F47Q10 Curiosity Nano and Power debugger boards from Microchip are used to demonstrate power down modes configuration and to measure MCU power consumption.
-*    The on-board mechanical switch (SW0) of PIC18F47Q10 Curiosity Nano board is used to invoke power down modes or to wake up the MCU from power down modes which happens sequentially at each switch press event.
-*    The MCU operating mode (i.e. Active mode/Doze mode/Idle mode/Sleep mode) information is transmitted to the terminal window of Data visualizer tool, through virtual COM port of the Curiosity nano board.
-*    The power debugger board measures the power consumption of the PIC18F47Q10 MCU and transmit it to the power analysis window of Data visualizer tool.
-*    The onboard LED(LED0) is used as an indication while the MCU wakes up from any of the power down modes and enters the active mode.
-*    Active mode: After power up, by default MCU operates in Active mode. To a switch press event the MCU performs EEPROM write and read operations. The power consumption of Curiosity Nano board in Active mode, can be viewed on power analysis window of the Data visualizer tool.
-*   Doze mode: The MCU enters Doze mode to a switch press event and performs the EEPROM operation. In this mode CPU operates at reduced clock instruction cycles compared to the active mode. The MCU continue to be in Doze mode until a switch press event is detected. Upon a switch press event, the MCU wake up from Doze mode and enter Active mode. Then after the on-board LED turns ON indicating the MCU is in active mode.
-*  	Idle mode: The MCU enters Idle mode to a switch press event. The MCU continue to be in Idle mode until a switch press event is detected. Upon a switch press event, the MCU wake up from the Idle mode and enter active mode. Then after the on-board LED turns ON indicating the MCU is in active mode.
-*  Sleep mode: The MCU enters Sleep mode to a switch press event. The MCU continue to be in Sleep mode until a switch press event is detected. Upon a switch press event, the MCU wake up from the Sleep mode and enter active mode. Then after the on-board LED turns ON indicating the MCU is in active mode.
+* PIC18F47Q10 Curiosity Nano and Power debugger boards from Microchip are used to demonstrate power down modes configuration and to measure MCU power consumption.
+* The on-board mechanical switch (SW0) of PIC18F47Q10 Curiosity Nano board is used to invoke power down modes or to wake up the MCU from power down modes which happens sequentially at each switch press event.
+* The MCU operating mode (i.e. Active mode/Doze mode/Idle mode/Sleep mode) information is transmitted to the terminal window of Data visualizer tool, through virtual COM port of the Curiosity nano board.
+* The power debugger board measures the power consumption of the PIC18F47Q10 MCU and transmit it to the power analysis window of Data visualizer tool.
+* The onboard LED(LED0) is used as an indication while the MCU wakes up from any of the power down modes and enters the active mode.
+* Active mode: After power up, by default MCU operates in Active mode. To a switch press event the MCU performs EEPROM write and read operations. The power consumption of Curiosity Nano board in Active mode, can be viewed on power analysis window of the Data visualizer tool.
+* Doze mode: The MCU enters Doze mode to a switch press event and performs the EEPROM operation. In this mode CPU operates at reduced clock instruction cycles compared to the active mode. The MCU continue to be in Doze mode until a switch press event is detected. Upon a switch press event, the MCU wake up from Doze mode and enter Active mode. Then after the on-board LED turns ON indicating the MCU is in active mode.
+* Idle mode: The MCU enters Idle mode to a switch press event. The MCU continue to be in Idle mode until a switch press event is detected. Upon a switch press event, the MCU wake up from the Idle mode and enter active mode. Then after the on-board LED turns ON indicating the MCU is in active mode.
+* Sleep mode: The MCU enters Sleep mode to a switch press event. The MCU continue to be in Sleep mode until a switch press event is detected. Upon a switch press event, the MCU wake up from the Sleep mode and enter active mode. Then after the on-board LED turns ON indicating the MCU is in active mode.
 
 # Hardware used
 **[PIC18F47Q10 Curiosity Nano board:](https://www.microchip.com/Developmenttools/ProductDetails/DM182029)**
@@ -71,7 +71,7 @@ With full program and debug capabilities, the PIC18F47Q10 Curiosity Nano evaluat
 
 **[Power Debugger:](https://www.microchip.com/developmenttools/ProductDetails/atpowerdebugger)**    
 
-Power debugger is a powerful development tool used for debugging and programming the AVR and SAM MCUs. The power debugger contains two channels for measuring power consumption, one channel is used for High-precision low-current measurement, while the second channel is used for Low-precision high-current measurement. In this example Power Debugger with Channel A (High precision low-current measurement) is used in order to measure current consumption of the PIC18F47Q10 MCU and to transmit the measured data to Power Analysis window of data visualizer tool. For more details refer to the [Power Debugger user guide](http://ww1.microchip.com/downloads/en/DeviceDoc/Power-Debugger_UserGuide.pdf). Figure 3 shows the Power debugger.
+Power debugger is a powerful development tool used for debugging and programming the AVR and SAM MCUs. The power debugger contains two channels for measuring power consumption, one channel is used for High-precision low-current measurement, while the second channel is used for Low-precision high-current measurement. In this example Power Debugger with Channel A (High precision low-current measurement) is used in order to measure current consumption of the PIC18F47Q10 MCU and to transmit the measured data to Power Analysis window of data visualizer tool. For more details refer to the [Power Debugger user guide](https://www.microchip.com/42696). Figure 3 shows the Power debugger.
 
 ![power_debugger](images/power_debugger.jpg)
 
@@ -86,13 +86,13 @@ Microchip’s free MPLAB X IDE, compiler and MPLAB Code Configurator (MCC) graph
 * [MPLAB® Code Configurator (MCC) v3.85.1](https://www.microchip.com/mplab/mplab-code-configurator)
 * [MCC Device Libraries PIC10 / PIC12 / PIC16 / PIC18  MCUs v1.78.0](https://www.microchip.com/mplab/mplab-code-configurator)
 * [Microchip PIC18F-Q Series Device Support 1.3.89](https://packs.download.microchip.com/)
-* [Standalone Data Visualizer 2.20.674](https://www.microchip.com/mplab/avr-support/data-visualizer)
+* [Standalone Data Visualizer 2.20.674](https://www.microchip.com/en-us/development-tools-tools-and-software/embedded-software-center/mplab-data-visualizer)
 
 *Note: For running the demo, the installed tool versions should be same or later. This example is not tested with previous versions.*
 
 **Data Visualizer:**
 
- The Data Visualizer is a software tool used to process and visualize data. The Data Visualizer can receive data from various sources such as the Embedded Debugger Data Gateway Interface (DGI) and COM ports. Data Visualizer is made up of several modules such as Graph, Oscilloscope, Terminal, Power debugging, Custom dashboard etc. In this example Standalone data visualizer tool is used to receive power consumption data from the Curiosity Nano board, and display it on Power analysis window .The terminal window is used to display the operating modes of the PIC18F47Q10 MCU(i.e. Active mode/Doze mode/Idle mode/Sleep mode). For more details on Data Visualizer tool refer to the [Data Visualizer user guide](http://ww1.microchip.com/downloads/en/DeviceDoc/40001903B.pdf).
+ The Data Visualizer is a software tool used to process and visualize data. The Data Visualizer can receive data from various sources such as the Embedded Debugger Data Gateway Interface (DGI) and COM ports. Data Visualizer is made up of several modules such as Graph, Oscilloscope, Terminal, Power debugging, Custom dashboard etc. In this example Standalone data visualizer tool is used to receive power consumption data from the Curiosity Nano board, and display it on Power analysis window .The terminal window is used to display the operating modes of the PIC18F47Q10 MCU(i.e. Active mode/Doze mode/Idle mode/Sleep mode). For more details on Data Visualizer tool refer to the [Data Visualizer user guide](https://www.microchip.com/DS40001903).
 
 # Demo realization
 ## Peripherals Configuration using MCC
@@ -146,16 +146,16 @@ In the peripherals section of MCC, click on Memory. Flash memory read/write rout
 There are two methods for Hardware connection.
 
 ### First Method:
-1.	Short the pins RE2 and RB0 using the jumper.
-2.	Cut the VTG strap on PIC18F47Q10 Curiosity nano board to measure the power consumption of the MCU (refer Figure 9).
+1. Short the pins RE2 and RB0 using the jumper.
+2. Cut the VTG strap on PIC18F47Q10 Curiosity nano board to measure the power consumption of the MCU (refer Figure 9).
 
 ![vtg_strap](images/vtg_strap.jpg)
 
 *Figure 9: Cut VTG strap on Curiosity Nano Board*
 
-3.	Setup the hardware connections as shown in figure 10:
-* 	Short the Variable Supply voltage pin to the Channel A input pin of power debugger
-* 	Since VTG strap is cut, power to the target MCU is suspended from USB. Power debugger is used as a source, to supply power to the Curiosity Nano Board. Connect Channel A output of power debugger to the VTG pin of Curiosity nano board, which supplies power of 3.3V.
+3. Setup the hardware connections as shown in figure 10:
+* Short the Variable Supply voltage pin to the Channel A input pin of power debugger
+* Since VTG strap is cut, power to the target MCU is suspended from USB. Power debugger is used as a source, to supply power to the Curiosity Nano Board. Connect Channel A output of power debugger to the VTG pin of Curiosity nano board, which supplies power of 3.3V.
 
 ![connection_1](images/connection_1.jpg)
 
@@ -165,7 +165,7 @@ There are two methods for Hardware connection.
 
 *Figure 11: Hardware setup*
 
-4.	Power debugger has an on-board voltage supply which can provide up to 1.6V to 5.5V from the USB DEBUG connector. To supply 3.3V to the PIC18F47Q10 MCU follow the steps below:
+4. Power debugger has an on-board voltage supply which can provide up to 1.6V to 5.5V from the USB DEBUG connector. To supply 3.3V to the PIC18F47Q10 MCU follow the steps below:
 * In the Data Visualizer window, select **Power Debugger Data Gateway** in DGI control panel.
 * Enable power interface in DGI control panel and open Power Configuration window by clicking on **Setting** icon. Uncheck **Enable B channel** which disables Channel B, so that Channel A can be used.
 * Check the **Enable Voltage Output** and by varying the **Voltage Output** slider, set voltage to 3.3V.
@@ -176,16 +176,16 @@ There are two methods for Hardware connection.
 *Figure 12: Power Configuration window*
 
 ### Second Method:
-1.	Short the pins RE2 and RB0 using the jumper.
-2.	Cut the VTG strap on PIC18F47Q10 Curiosity nano board and solder two wires on that VTG strap
-3.	Connect the two soldered wires to the Channel A of the power debugger in series to measure current as shown in figure 13.
+1. Short the pins RE2 and RB0 using the jumper.
+2. Cut the VTG strap on PIC18F47Q10 Curiosity nano board and solder two wires on that VTG strap
+3. Connect the two soldered wires to the Channel A of the power debugger in series to measure current as shown in figure 13.
 
 
 ![connection_2](images/connection_2.jpg)
 
 *Figure 13: Current measurement using power debugger hardware connections*
 
-4.  Setup the hardware, as shown in figure 14.
+4. Setup the hardware, as shown in figure 14.
 
 ![setup_2](images/setup_2.jpg)
 
@@ -205,19 +205,21 @@ There are two methods for Hardware connection.
 
 *Figure 15: Programming the device*
 
-9.  IDE generates the .hex file, save the file in local PC.
-10.  Drag the .hex from the downloads section and drop the file on to the Curiosity drive. This should program the device.
+9. IDE generates the .hex file, save the file in local PC.
+10. Drag the .hex from the downloads section and drop the file on to the Curiosity drive. This should program the device.
+
+*Note: Steps 9 and 10 are required only for MPLAB XPRESS IDE. For MPLAB X IDE, up-to step 8 is sufficient to program the device.*
 
 ### Steps to open the Power Analysis window in Data Visualizer
 **Open the standalone Data Visualizer tool.**
-1.  In the Data Visualizer window, click on the **Configuration tab**.
-2.	In the **Modules section**, expand **External connection option** and then double click on **Data Gateway Interface (DGI).**
-3.  Select the **Power Debugger Data Gateway** in DGI Control Panel.
-4.  Click on the **Connect** button.
-5.  Enable the **Power** Interface in DGI Control Panel, to allow the measured power data being sent from Power Debugger Data Gateway to the DGI Control Panel.
-6.  In the **Modules** section, expand **Visualization** option and then double click on **Power Debugging**, **Power Analysis** window will be opened.
+1. In the Data Visualizer window, click on the **Configuration tab**.
+2. In the **Modules section**, expand **External connection option** and then double click on **Data Gateway Interface (DGI).**
+3. Select the **Power Debugger Data Gateway** in DGI Control Panel.
+4. Click on the **Connect** button.
+5. Enable the **Power** Interface in DGI Control Panel, to allow the measured power data being sent from Power Debugger Data Gateway to the DGI Control Panel.
+6. In the **Modules** section, expand **Visualization** option and then double click on **Power Debugging**, **Power Analysis** window will be opened.
 7. In Power Analysis window, expand **Control Panel** and drag the Channel A current source from DGI Control Panel and drop it into Channel A current sink in Power Analysis window.
-8.	Start receiving the power data by clicking **Start** button.
+8. Start receiving the power data by clicking **Start** button.
 
 ![data_visualizer](images/data_visualizer.jpg)
 
@@ -225,12 +227,12 @@ There are two methods for Hardware connection.
 
 ### Steps to open Terminal window in Data Visualizer:
 **Open the standalone Data Visualizer tool.**
-1.	In the Data Visualizer window, click on the **Configuration tab**.
-2.	In the **Modules section**, expand **External connection** option and then double click on Serial Port.
-3.	Select the **Curiosity Virtual Com Port** in Serial Port Control Panel.
-4.	Set the Baud rate to 9600.
-5.	Check the **“Open Terminal”** option.
-6.	Click on the **Connect** button.
+1. In the Data Visualizer window, click on the **Configuration tab**.
+2. In the **Modules section**, expand **External connection** option and then double click on Serial Port.
+3. Select the **Curiosity Virtual Com Port** in Serial Port Control Panel.
+4. Set the Baud rate to 9600.
+5. Check the **“Open Terminal”** option.
+6. Click on the **Connect** button.
 
 ![terminal](images/terminal.jpg)
 
