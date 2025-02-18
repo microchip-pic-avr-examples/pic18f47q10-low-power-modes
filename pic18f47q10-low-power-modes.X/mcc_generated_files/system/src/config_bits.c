@@ -41,12 +41,12 @@
 
 //CONFIG1H
 #pragma config CLKOUTEN = OFF     // Clock Out Enable->CLKOUT function is disabled
-#pragma config FCMEN = ON     // Fail-Safe Clock Monitor Enable->Fail-Safe Clock Monitor enabled
+#pragma config FCMEN = OFF     // Fail-Safe Clock Monitor Enable->Fail-Safe Clock Monitor disabled
 #pragma config CSWEN = ON     // Clock Switch Enable->Writing to NOSC and NDIV is allowed
 
 //CONFIG2L
 #pragma config MCLRE = EXTMCLR     // Master Clear (MCLR) Enable->MCLR pin (RE3) is MCLR
-#pragma config BOREN = SBORDIS     // Brown-Out Reset Enable->Brown-out Reset enabled , SBOREN bit is ignored
+#pragma config BOREN = OFF     // Brown-Out Reset Enable->Brown-out Reset disabled
 #pragma config PWRTE = OFF     // Power-Up Timer Enable->Power up timer disabled
 #pragma config LPBOREN = OFF     // Low-Power BOR Enable->Low power BOR is disabled
 
