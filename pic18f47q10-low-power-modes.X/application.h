@@ -41,4 +41,3 @@ void UserInterruptHandler(void);
 #endif /* __cplusplus */
 
 #endif	/* XC_HEADER_TEMPLATE_H */
-

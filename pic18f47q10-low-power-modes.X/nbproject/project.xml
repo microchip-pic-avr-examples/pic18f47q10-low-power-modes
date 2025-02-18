@@ -4,12 +4,8 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>pic18f47q10-low-power-modes</name>
-            <creation-uuid>4b0f5ba7-aaae-489c-893e-8f9bef5b1afe</creation-uuid>
+            <creation-uuid>5b24ac27-e408-45d5-9994-08bf66988fb2</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions>c</c-extensions>
-            <cpp-extensions/>
-            <header-extensions>h</header-extensions>
-            <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList/>

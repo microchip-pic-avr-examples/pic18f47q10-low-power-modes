@@ -3,10 +3,7 @@
  *  include files
  * **********************************************************
  **/
-
-
-#include "mcc_generated_files/mcc.h"
-#include "mcc_generated_files/pin_manager.h"
+#include "mcc_generated_files/system/system.h"
 #include "application.h"
 #include "stdio.h"
 
@@ -254,11 +251,12 @@ void MemoryOperation(const uint16_t address, const uint8_t *data)
         for (j = 0; *(data + j) != '\0'; j++) 
         {
             //EEPROM Write operation to the memory
-            DATAEE_WriteByte(address, *(data + j));
+            NVM_UnlockKeySet(UNLOCK_KEY_WORD_BYTE_WRITE);
+            EEPROM_Write(address, *(data + j));
             //EEPROM Read operation 
-            tempData = DATAEE_ReadByte(address);
+            tempData = EEPROM_Read(address);
             //sending the data through EUSART2 peripheral
-
+            NVM_UnlockKeyClear();
             if (eepromOperationCount==1) 
             {
                  EUSART2_Write(tempData);
@@ -548,4 +546,3 @@ void UserInterruptHandler(void)
     //to detect the key press
     buttonState = KEY_PRESSED;
 }
-
