@@ -165,7 +165,7 @@ There are two methods for Hardware connection.
 2. Cut the Power Target strap on PIC18F47Q10 Curiosity nano board and solder two wires on that VTG strap
 3. Connect the two soldered wires to the Channel A of the power debugger in series to measure current as shown in figure 13.
 
-<img src="images/connection_2.jpg" width=600>
+<img src="images/connection_2.jpg" width=400 >
 
 *Figure 6: Current measurement using power debugger hardware connections*
 
