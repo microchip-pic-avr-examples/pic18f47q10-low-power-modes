@@ -2,7 +2,7 @@
 
 # Low Power Modes in PIC® Microcontrollers
 # Introduction
- The term " power down mode” refers to a condition in which a Microcontroller Unit (MCU) enters a low-power mode. The power down modes helps to reduce average power consumption of the MCU through effective management of CPU operations, clock signal to CPU and peripherals. The power down modes in PIC family of MCU’s typically comprises of Doze, Idle, Sleep and Deep sleep modes. The PIC18 Q10 family of MCU’s have three power down modes and they are Doze, Idle and Sleep mode. This example demonstrates configuration of Doze, Idle and Sleep power down modes in PIC18F47Q10 MCU, to achieve low power consumption.       
+ PIC Microcontroller Units (MCU)s feature variosu Power-Down modes that help to reduce average power consumption through effective management of CPU operations, clock signals, and peripherals. The Power-Down modes typically comprise of Doze, Idle, Sleep and Deep sleep modes. The PIC18-Q10 family of MCUs have three power down modes - Doze, Idle and Sleep. This example demonstrates how to acheive low power consumption by utilizing Doze, Idle, and Sleep modes.    
 
  # Useful Links
 - [Low-Power Design Tips & Tricks](https://www.microchip.com/DS01146)
@@ -12,36 +12,42 @@
 - [PIC18F47Q10 Data Sheet](https://www.microchip.com/DS40002043)
 - [PIC18F47Q10 Code Examples on GitHub](https://github.com/microchip-pic-avr-examples?q=pic18f47q10)
 
-
 # Power down modes - Theory
-This section briefly discusses each of the power down mode available in PIC18 Q10 family.
+This section briefly discusses each of the Power-Down mode available on PIC18-Q10 devices.
 
-**Doze mode:** In Doze mode CPU and memory operations are affected, but the peripheral clocks continue to run. Doze mode allows power saving by reducing CPU clock instruction cycle compared to the active mode, while leaving the peripherals clock unchanged. In Doze mode CPU executes only one instruction cycle out of every N-cycles as defined by the DOZE [2:0] bits in CPUDOZE register. For example, if DOZE [2:0] = 001, the instruction cycle ratio is 1:4. The CPU and memory execute for one instruction cycle and then lay idle for three instruction cycles. During the unused cycles, the peripherals continue to operate at the system clock speed.
-Steps to enter the Doze mode:
-1. CPUDOZEbits.DOZEN    = 1; //Doze enable bit (DOZEN) must be set, to enter the Doze mode.
-2. CPUDOZEbits.DOZE[2:0]= 0bxxx; //Select the ratio of CPU clock instruction cycle to Peripheral             clock instruction cycle in DOZE register.
-3. CPUDOZEbits.ROI          = 1; //Set the Recover-On-Interrupt bit to come out of the Doze mode, when              interrupt occurs.
+## Doze mode
+ In Doze mode, CPU and memory operations are affected, but the peripheral clocks continue to run. Doze mode allows power saving by reducing CPU clock instruction cycles, while leaving the peripheral clock unchanged. In Doze mode the CPU executes only one instruction cycle out of every N-cycles as defined by the DOZE [2:0] bits in the `CPUDOZE` register. For example, if DOZE [2:0] = 001, the instruction cycle ratio is 1:4. The CPU and memory execute for one instruction cycle and then lay idle for three instruction cycles. During the unused cycles, the peripherals continue to operate at the system clock speed.
 
-**Idle mode:** In Idle mode CPU and Memory operations are halted, but the peripheral clocks continue to run. Device is put into the Idle mode by executing **SLEEP** instruction, when Idle enable bit (IDLEN=1) is set.
+Steps to enter Doze mode:
+1. `CPUDOZEbits.DOZEN = 1;        // Doze enable bit (DOZEN) must be set, to enter the Doze mode`
+2. `CPUDOZEbits.DOZE = dozeRatio; //Select the ratio of CPU clock instruction cycle to Peripheral clock instruction cycle in DOZE register`
+3. `CPUDOZEbits.ROI = 1; //Set the Recover-On-Interrupt bit to come out of the Doze mode, when interrupt occurs`
 
-**Sleep mode:** Sleep mode turns OFF the system clock. The CPU and all peripherals requiring the system clock will cease operation. The contents of the memory and registers are maintained in the sleep mode. Device is put into the Sleep mode by executing **SLEEP** instruction, when Idle enable bit (IDEN=0) is clear.
+## Idle mode
+ In Idle mode, CPU and Memory operations are halted, but the peripheral clocks continue to run. Device is put into Idle mode by executing the `SLEEP` instruction when the Idle enable bit is set.
+
+## Sleep mode 
+Sleep mode turns off the system clock. The CPU and all peripherals requiring the system clock will cease operation. The contents of the memory and registers are maintained in Sleep mode. The device is put into Sleep mode by executing the `SLEEP` instruction, when the Idle enable bit is clear.
 
 # Clocks
-This section discusses about System clock, CPU clock and Peripheral cock (Refer Table 1).
+This section discusses the System clock, CPU clock, and Peripheral clock (Refer to Table 1).
 
-**System Clock:** System clock designated as FOSC is the main clock which can be supplied from external oscillators, quartz crystal resonators, ceramic resonators and Resistor-Capacitor (RC) circuits. In addition, the system clock source can be supplied from one of two internal oscillators. Oscillator module can be configured to select one of the clock sources.
+## System Clock
+ The System clock, designated as FOSC, is the main clock which can be supplied from external oscillators, quartz crystal resonators, ceramic resonators, or Resistor-Capacitor (RC) circuits. Additionally, the system clock source can be supplied from one of two internal oscillators. The Oscillator module can be configured to select one of the clock sources.
 
-**CPU Clock:** The instruction clock or CPU clock is derived from the system clock or FOSC through a divider to deliver an instruction clock of FOSC/4 (1/4 the oscillator speed). This is done to allow the fetch and execute pipeline in the architecture to execute one assembly instruction per instruction clock cycle (except for branches and goto's which execute in two). CPU clock is supplied to the CPU and memory to perform CPU and memory Operations in the application.
+## CPU Clock
+ The instruction clock, or CPU clock, is derived from the system clock or FOSC through a divider to deliver an instruction clock of FOSC/4 (1/4 the oscillator speed). This is done to allow the fetch and execute pipeline in the architecture to execute one assembly instruction per instruction clock cycle (except for branches and goto's which execute in two). The CPU clock is supplied to the CPU and memory to perform CPU and memory Operations in the application.
 
-**Peripheral Clock:** Clock to different peripherals can be selected from various options such as FOSC i.e. the system clock, FOSC/4 (instruction clock or CPU clock), output of other peripherals, LFINTOSC, MFINTOSC, HFINTOSC or Timer overflow events etc.
+## Peripheral Clock
+ Each Peripheral on the device will have its own clock options which usually include FOSC, FOSC/4, the internal low-frequency oscillator (LFINTOSC), and the output of other peripherals. Refer to the device data sheet for the specifics of each peripheral. 
 
 ![clock_details](images/clock_details.jpg)
 
 *Table 1: Clock details in Power Down modes*
 
-**Peripheral Module Disable:**
+## Peripheral Module Disable
 
-The Peripheral Module Disable (PMD) provides the ability to disable a peripheral module by stopping all clock sources supplied to that module. A peripheral can be disabled by setting the corresponding peripheral disable bit in the PMDx register.  All the peripherals are enabled by default. To reduce overall power consumption, the user can disable unused modules/Peripherals. Refer to the device data sheet for more details about the PMD register
+The Peripheral Module Disable (PMD) feature provides the ability to disable a peripheral by stopping all clock sources supplied to that module. A peripheral can be disabled by setting the corresponding peripheral disable bit in the PMDx register.  All the peripherals are enabled by default. To reduce overall power consumption, the user can disable unused modules/Peripherals. Refer to the device data sheet for more details about the PMD register
 
 # Demo Description
 
@@ -50,18 +56,18 @@ The Peripheral Module Disable (PMD) provides the ability to disable a peripheral
 *Figure 1: Block diagram of application demo*  
 
   In this demo,
-* PIC18F47Q10 Curiosity Nano and Power debugger boards from Microchip are used to demonstrate power down modes configuration and to measure MCU power consumption.
-* The on-board mechanical switch (SW0) of PIC18F47Q10 Curiosity Nano board is used to invoke power down modes or to wake up the MCU from power down modes which happens sequentially at each switch press event.
-* The MCU operating mode (i.e. Active mode/Doze mode/Idle mode/Sleep mode) information is transmitted to the terminal window of Data visualizer tool, through virtual COM port of the Curiosity nano board.
-* The power debugger board measures the power consumption of the PIC18F47Q10 MCU and transmit it to the power analysis window of Data visualizer tool.
-* The onboard LED(LED0) is used as an indication while the MCU wakes up from any of the power down modes and enters the active mode.
-* Active mode: After power up, by default MCU operates in Active mode. To a switch press event the MCU performs EEPROM write and read operations. The power consumption of Curiosity Nano board in Active mode, can be viewed on power analysis window of the Data visualizer tool.
-* Doze mode: The MCU enters Doze mode to a switch press event and performs the EEPROM operation. In this mode CPU operates at reduced clock instruction cycles compared to the active mode. The MCU continue to be in Doze mode until a switch press event is detected. Upon a switch press event, the MCU wake up from Doze mode and enter Active mode. Then after the on-board LED turns ON indicating the MCU is in active mode.
-* Idle mode: The MCU enters Idle mode to a switch press event. The MCU continue to be in Idle mode until a switch press event is detected. Upon a switch press event, the MCU wake up from the Idle mode and enter active mode. Then after the on-board LED turns ON indicating the MCU is in active mode.
-* Sleep mode: The MCU enters Sleep mode to a switch press event. The MCU continue to be in Sleep mode until a switch press event is detected. Upon a switch press event, the MCU wake up from the Sleep mode and enter active mode. Then after the on-board LED turns ON indicating the MCU is in active mode.
+* The PIC18F47Q10 Curiosity Nano and Power debugger boards from Microchip are used to demonstrate Power-Down modes configuration and to measure MCU power consumption.
+* The on-board mechanical switch (SW0) of the PIC18F47Q10 Curiosity Nano board is used to invoke Power-Down modes or to wake up the MCU from power down modes which happens sequentially at each switch press event.
+* The MCU operating mode (i.e. Active mode/Doze mode/Idle mode/Sleep mode) information is transmitted to the terminal window of Data visualizer tool, through the virtual COM port of the Curiosity nano board.
+* The Power Debugger board measures the power consumption of the PIC18F47Q10 MCU and displays the measurement using MPLAB Data visualizer.
+* The onboard LED (LED0) is used as an indication while the MCU wakes up from any of the power down modes and enters the active mode.
+* On start-up, the MCU operates in Active mode. When SW0 is pressed, the MCU performs EEPROM write and read operations. While this is happening, the power consumption of the device can be viewed in Data Visualizer. 
+* When SW0 is pressed again, the MCU enters Doze mode and performs the EEPROM operation. In this mode CPU operates at reduced clock instruction cycles compared to the active mode. The MCU remains in Doze mode until SW0 is pressed again, after which the MCU will wake up from Doze mode and enter Active mode. LED0 will then turn on indicating the MCU is in active mode.
+* When SW0 is pressed again, the MCU will enter Idle mode. The MCU will remain in Idle mode until SW0 is pressed and the MCU switches to Active mode. LED0 will turn on to indicate the device is in Active mode 
+* When SW0 is pressed again, the MCU enters Sleep mode. The MCU continues in Sleep mode until a switch press event is detected. Upon a switch press event, the MCU wake up from the Sleep mode and enters Active mode. LED0 will be on to indicate the device is in Active mode. 
 
 # Hardware used
-**[PIC18F47Q10 Curiosity Nano board:](https://www.microchip.com/Developmenttools/ProductDetails/DM182029)**
+**[PIC18F47Q10 Curiosity Nano board](https://www.microchip.com/Developmenttools/ProductDetails/DM182029)**
 
 With full program and debug capabilities, the PIC18F47Q10 Curiosity Nano evaluation kit offers complete support for the new design. With the award-winning MPLAB X integrated development platform and MPLAB Code Configurator (MCC), the kit provides access to the Intelligent analog and Core Independent Peripherals on the PIC18F47Q10. Figure 2 shows PIC18F47Q10 Curiosity Nano board. For more details refer to the [PIC18F47Q10 Curiosity Nano Hardware user guide](https://www.microchip.com/DS40002103)
 
@@ -69,293 +75,234 @@ With full program and debug capabilities, the PIC18F47Q10 Curiosity Nano evaluat
 
 *Figure 2: PIC18F47Q10 Curiosity Nano board*
 
-**[Power Debugger:](https://www.microchip.com/developmenttools/ProductDetails/atpowerdebugger)**    
+**[Power Debugger](https://www.microchip.com/developmenttools/ProductDetails/atpowerdebugger)**    
 
-Power debugger is a powerful development tool used for debugging and programming the AVR and SAM MCUs. The power debugger contains two channels for measuring power consumption, one channel is used for High-precision low-current measurement, while the second channel is used for Low-precision high-current measurement. In this example Power Debugger with Channel A (High precision low-current measurement) is used in order to measure current consumption of the PIC18F47Q10 MCU and to transmit the measured data to Power Analysis window of data visualizer tool. For more details refer to the [Power Debugger user guide](https://www.microchip.com/42696). Figure 3 shows the Power debugger.
+Power Debugger is a powerful development tool used for debugging and programming AVR and SAM MCUs. The power debugger contains two channels for measuring power consumption, one channel is used for High-precision low-current measurement, while the second channel is used for Low-precision high-current measurement. In this example, Power Debugger with Channel A (High precision low-current measurement) is used in order to measure current consumption of the PIC18F47Q10 MCU and to transmit the measured data to Data Visualizer. For more details refer to the [Power Debugger User Guide](https://www.microchip.com/42696). Figure 3 shows the Power debugger.
 
-![power_debugger](images/power_debugger.jpg)
+<img src = "images/power_debugger.jpg" width=400>
 
 *Figure 3: Power Debugger*
 
-*Note: In Curiosity Nano board, on-board level shifters will draw a current of 20 μA. To know the power consumption of PIC18F47Q10 MCU in each power down modes, minus 20 μA from actual power consumption.*
+*Note: In Curiosity Nano board, on-board level shifters will draw a current of 20 μA. To know the power consumption of PIC18F47Q10 MCU in each power down modes, subtract 20 μA from actual power consumption.*
 
 # Software Tools:
 Microchip’s free MPLAB X IDE, compiler and MPLAB Code Configurator (MCC) graphical code generator are used throughout the firmware development. Following are the tool versions used for this demo application:
-* [MPLAB® X IDE v5.30](https://www.microchip.com/mplab/mplab-x-ide)
-* [XC8 Compiler v2.10](https://www.microchip.com/mplab/compilers)
-* [MPLAB® Code Configurator (MCC) v3.85.1](https://www.microchip.com/mplab/mplab-code-configurator)
-* [MCC Device Libraries PIC10 / PIC12 / PIC16 / PIC18  MCUs v1.78.0](https://www.microchip.com/mplab/mplab-code-configurator)
-* [Microchip PIC18F-Q Series Device Support 1.3.89](https://packs.download.microchip.com/)
-* [Standalone Data Visualizer 2.20.674](https://www.microchip.com/en-us/development-tools-tools-and-software/embedded-software-center/mplab-data-visualizer)
+* [MPLAB® X IDE v6.20](https://www.microchip.com/mplab/mplab-x-ide)
+* [XC8 Compiler v3.00](https://www.microchip.com/mplab/compilers)
+* [MPLAB® Code Configurator (MCC) v5.7.1](https://www.microchip.com/mplab/mplab-code-configurator)
+* [Microchip PIC18F-Q Series Device Support 1.26.442](https://packs.download.microchip.com/)
 
 *Note: For running the demo, the installed tool versions should be same or later. This example is not tested with previous versions.*
 
-**Data Visualizer:**
+**MPLAB Data Visualizer**
 
- The Data Visualizer is a software tool used to process and visualize data. The Data Visualizer can receive data from various sources such as the Embedded Debugger Data Gateway Interface (DGI) and COM ports. Data Visualizer is made up of several modules such as Graph, Oscilloscope, Terminal, Power debugging, Custom dashboard etc. In this example Standalone data visualizer tool is used to receive power consumption data from the Curiosity Nano board, and display it on Power analysis window .The terminal window is used to display the operating modes of the PIC18F47Q10 MCU(i.e. Active mode/Doze mode/Idle mode/Sleep mode). For more details on Data Visualizer tool refer to the [Data Visualizer user guide](https://www.microchip.com/DS40001903).
+ MPLAB Data Visualizer is a plugin available in MPLAB X used to process and visualize data. Data Visualizer can receive data from various sources such as the Embedded Debugger Data Gateway Interface (DGI) and COM ports. Data Visualizer is made up of several modules such as Graph, Terminal, Power debugging, Custom dashboard etc. In this example, Data Visualizer is used to plot power consumption data received from the Power Debugger. The terminal window is used to display serial data transmitted by the PIC18F47Q10 MCU to indicate the current Power-Down mode. 
 
 # Demo realization
 ## Peripherals Configuration using MCC
-**System Configuration**
 
-The system configuration window of MCC is used for MCU oscillator, PLL, Watchdog timer and low voltage programming configuration. Internal oscillator of 1MHz frequency with clock divider 1 is used as a system clock and the Watchdog timer is disabled in this example. Figure 4 shows the system configuration settings used in this example.
+**Clock Control**
 
-![system_configuration](images/system_configuration.jpg)
+- Clock Source: HFINTOSC
+- HF Internal Clock: 1_MHz
+- Clock Divider: 1
 
-*Figure 4: System Configuration*
+**Configuration Bits**
 
-**EUSART2 Configuration**
+- Fail-Safe Clock Monitor Enable: Disabled
+- External Oscillator Mode Selection: Oscillator not enabled
+- Brown-out Reset Enable: Brown-out Reset disabled
+- WDT Operating Mode: WDT Disabled
 
-In this demo EUSART2 is used to transmit data on the terminal window to display the device mode of operation (i.e. active/doze/idle/sleep). Figure 5 shows the EUSART2 module configuration settings.
-Configurations to be done on EUSART2 peripheral:
-* Check the Enable EUSART checkbox.
-* Check the Enable Transmit checkbox.
-* Set the Baud Rate to 9600.
-* Check the Redirect STDIO to USART.
+**UART**
 
-![esuart2](images/esuart2.jpg)
+- UART PLIB Selector: EUSART2
+- Requested Baudrate: 9600
+- Data Size: 8
+- Flow Control Mode: None
+- Redirect Printf to UART: Enabled
 
-*Figure 5: EUSART2 Configuration*
+**NVM**
 
-**Pin Module**
+- Generate Flash APIs: Enabled 
+- Generate EEPROM APIs: Enabled
 
-The I/O pin mapping of the PIC18F47Q10 MCU for EUSART2 interface and Curiosity Nano on board LED is shown in the figure 6.
-Configurations to be done:
-* Select pin RD0 as an EUSART2 TX pin.
-* Configure pin RE0 as output to connect to LED0.
-* Configure pin RE2 as input. The RE2 pin is connected to Switch and external interrupt feature is not available on pin RE2, so pin RB0 with IOC (Interrupt on Change) is used for detecting switch press event.
-* Set pin RB0 IOC (Interrupt on Change) to positive.
+**Pins**
 
-![pin_manager](images/pin_manager.jpg)
-
-*Figure 6: Pin manager configuration*
-
-![pin_module](images/pin_module.jpg)
-
-*Figure 7: Pin module configuration*
-
-**Memory Configuration**
-
-In the peripherals section of MCC, click on Memory. Flash memory read/write routines are automatically included. Check the Add DataEE Routines to include EEPROM memory write/read routines which are required for this example.
-
-![memory](images/memory.jpg)
-
-*Figure 8: Memory module configuration*
+| Pin Name | Module  | Function | Direction | Custom Name | Weak Pullup |
+| -------- | ------- | -------- | --------- | ----------- | ----------- | 
+|   RD0    | EUSART2 |   TX2    |   output  |    IO_RD0   |     No      |
+|   RB0    | Pins    |   GPIO   |   input   |    IO_RB0   |     Yes     |
+|   RE2    | Pins    |   GPIO   |   input   |    IO_RE2   |     Yes     | 
+|   RE0    | Pins    |   GPIO   |   output  |    LED      |     No      |
 
 # Hardware Setup
 There are two methods for Hardware connection.
 
 ### First Method:
-1. Short the pins RE2 and RB0 using the jumper.
-2. Cut the VTG strap on PIC18F47Q10 Curiosity nano board to measure the power consumption of the MCU (refer Figure 9).
-
-![vtg_strap](images/vtg_strap.jpg)
-
-*Figure 9: Cut VTG strap on Curiosity Nano Board*
-
-3. Setup the hardware connections as shown in figure 10:
-* Short the Variable Supply voltage pin to the Channel A input pin of power debugger
-* Since VTG strap is cut, power to the target MCU is suspended from USB. Power debugger is used as a source, to supply power to the Curiosity Nano Board. Connect Channel A output of power debugger to the VTG pin of Curiosity nano board, which supplies power of 3.3V.
+1. Short the pins RE2 and RB0 using the jumper
+2. Cut the Target Power strap on PIC18F47Q10 Curiosity nano board to measure the power consumption of the MCU (refer to PIC18F47Q10 Curiosity Nano Hardware User Guide)
+3. Setup the hardware connections as shown in figure 4:
+   - Short the Variable Supply voltage pin to the Channel A input pin of power debugger
+   - Since Target Power strap is cut, power to the target MCU is suspended from USB. Power debugger is used as a source to supply power to the Curiosity Nano Board. Connect Channel A output of power debugger to the VTG pin of Curiosity nano board, which supplies power of 3.3V.
 
 ![connection_1](images/connection_1.jpg)
 
-*Figure 10: Current measurement using power debugger hardware connections*
+*Figure 4: Current measurement using power debugger hardware connections*
 
-![setup_1](images/setup_1.jpg)
-
-*Figure 11: Hardware setup*
 
 4. Power debugger has an on-board voltage supply which can provide up to 1.6V to 5.5V from the USB DEBUG connector. To supply 3.3V to the PIC18F47Q10 MCU follow the steps below:
-* In the Data Visualizer window, select **Power Debugger Data Gateway** in DGI control panel.
-* Enable power interface in DGI control panel and open Power Configuration window by clicking on **Setting** icon. Uncheck **Enable B channel** which disables Channel B, so that Channel A can be used.
-* Check the **Enable Voltage Output** and by varying the **Voltage Output** slider, set voltage to 3.3V.
-* Click on **OK** button.
+    -In the Data Visualizer tab, select **Power Debugger CMSIS-DAP**
+    -Enable power interface by opening **Power Settings**. Enter 3300 in the Output Voltage in mV box.
+    -Click anywhere outside the Power settings pop-up to save the settings
 
 ![power_configuration](images/power_configuration.jpg)
 
-*Figure 12: Power Configuration window*
+*Figure 5: Power Configuration window*
 
 ### Second Method:
 1. Short the pins RE2 and RB0 using the jumper.
-2. Cut the VTG strap on PIC18F47Q10 Curiosity nano board and solder two wires on that VTG strap
+2. Cut the Power Target strap on PIC18F47Q10 Curiosity nano board and solder two wires on that VTG strap
 3. Connect the two soldered wires to the Channel A of the power debugger in series to measure current as shown in figure 13.
 
+<img src="images/connection_2.jpg" width=600>
 
-![connection_2](images/connection_2.jpg)
+*Figure 6: Current measurement using power debugger hardware connections*
 
-*Figure 13: Current measurement using power debugger hardware connections*
+4. Setup the hardware, as shown in figure 6.
 
-4. Setup the hardware, as shown in figure 14.
-
-![setup_2](images/setup_2.jpg)
-
-*Figure 14: Hardware setup*
 
 **(Steps from 5 to 10 are same for the two methods of hardware connection)**
 
 5. Power the Curiosity nano board from PC machine, by connecting micro USB cable between PC USB port and micro USB port of the Curiosity nano board.
 
-6. Similarly, power the Power debugger board from PC machine, by connecting micro USB cable between PC USB port and micro USB port (named as DEBUG) of the power debugger board.
+6. Similarly, power the Power Debugger board from PC, by connecting micro USB cable between PC USB port and micro USB port (named as DEBUG) of the power debugger board.
 
 7. The Curiosity Nano board should appear as a Mass Storage Device after connecting to the PC.
 
-8. Program the MCU by clicking “Make and Program Device” icon on MPLAB XPRESS IDE as shown in figure 15.
+8. Program the MCU by clicking “Make and Program Device” icon on MPLAB X IDE.
 
-![program](images/program.jpg)
 
-*Figure 15: Programming the device*
-
-9. IDE generates the .hex file, save the file in local PC.
-10. Drag the .hex from the downloads section and drop the file on to the Curiosity drive. This should program the device.
-
-*Note: Steps 9 and 10 are required only for MPLAB XPRESS IDE. For MPLAB X IDE, up-to step 8 is sufficient to program the device.*
-
-### Steps to open the Power Analysis window in Data Visualizer
-**Open the standalone Data Visualizer tool.**
-1. In the Data Visualizer window, click on the **Configuration tab**.
-2. In the **Modules section**, expand **External connection option** and then double click on **Data Gateway Interface (DGI).**
-3. Select the **Power Debugger Data Gateway** in DGI Control Panel.
-4. Click on the **Connect** button.
-5. Enable the **Power** Interface in DGI Control Panel, to allow the measured power data being sent from Power Debugger Data Gateway to the DGI Control Panel.
-6. In the **Modules** section, expand **Visualization** option and then double click on **Power Debugging**, **Power Analysis** window will be opened.
-7. In Power Analysis window, expand **Control Panel** and drag the Channel A current source from DGI Control Panel and drop it into Channel A current sink in Power Analysis window.
-8. Start receiving the power data by clicking **Start** button.
+### Steps to plot power in Data Visualizer
+1. Open Data Visualizer by clicking the Data Visualizer icon in MPLAB X
+2. Under the Data Visualizer tab, click on the connections on the left side of the pane
+3. Expand the option "Power Debugger CMSIS-DAP"
+4. Click the play button next to "Power" 
 
 ![data_visualizer](images/data_visualizer.jpg)
 
-*Figure 16: Start Data visualizer and open Power analysis window*
+*Figure 7: Start Data visualizer and start plotting power*
 
-### Steps to open Terminal window in Data Visualizer:
-**Open the standalone Data Visualizer tool.**
-1. In the Data Visualizer window, click on the **Configuration tab**.
-2. In the **Modules section**, expand **External connection** option and then double click on Serial Port.
-3. Select the **Curiosity Virtual Com Port** in Serial Port Control Panel.
-4. Set the Baud rate to 9600.
-5. Check the **“Open Terminal”** option.
-6. Click on the **Connect** button.
+### Steps to open Terminal window in Data Visualizer
+1. In the Data Visualizer window, click on "Connections" 
+2. Expand the option "PIC18F47Q10 Curiosity Nano"
+3. Mouse over the COM port listed under "PIC18F47Q10 Curiosity Nano"
+4. Click on the terminal icon
 
 ![terminal](images/terminal.jpg)
 
-*Figure 17: Open terminal window in Data visualizer*
+*Figure 8: Open terminal window in Data visualizer*
 
 # Demo Operation
-Instant and Window Average current consumption Explanation:
 
-![power_analysis](images/power_analysis.jpg)
-
-*Figure 18: Power Analysis window for Instant and Window Average*
-
-**Instant Current Consumption:**
-Figure 18 shows the instant current consumption of MCU at time T1 is 545.3 μA.
-
-**Window Average:**
- Window Average is the average current consumption of the samples over the period. Figure 14 shows the window average current consumption of MCU is 250.8 μA.
-
-**Following figures show the average current consumption of the Curiosity nano board in different power down modes of MCU.**
-
-**The intend of demonstration is to showcase the configuration and functionality of MCU power down modes and the power consumption values discussed in this document are observed with mentioned Hardware setup as shown in figure 14.**
+The following figures show the average current consumption of the Curiosity nano board in different power down modes of MCU. The power consumption values discussed in this document are observed with mentioned hardware setup as previously described.
 
 **Active mode:**
-* After power up the MCU, enters the Active mode.
-* Before each switch press, instructions are mentioned to the user on terminal window.  E.g.  Press Switch- To perform EEPROM Operation in Active mode.
-* When the Curiosity Nano board is loaded with the firmware, following waveform (Refer Fig 19) is observed and instructions are provided on terminal window to the user for further operations.
-* Observe the average current consumption of the MCU in Active mode is 243.7 μA.
-* Refer Window average current and don’t refer instant current.
+- After power up, the MCU enters the Active mode
+- Before each switch press, instructions are mentioned to the user on terminal window.  E.g.  Press Switch- To perform EEPROM Operation in Active mode.
+- When the Curiosity Nano board is loaded with the firmware, following waveform (Refer Fig 9) is observed and instructions are provided on terminal window to the user for further operations
+- Observe the average current consumption of the MCU in Active mode is 255 uA
 
 ![power_analysis_active_1](images/power_analysis_active_1.jpg)
 
-*Figure 19: Power Analysis and Terminal window in Active mode*
+*Figure 9: Current Consumption in Active mode*
 
 **Active mode – EEPROM Operation**
-* Press Switch (SW0) to perform EEPROM Operation in Active mode and user needs to wait until the “Completed” text is displayed on terminal window, which indicates EEPROM Operation is completed.
-* Observe the average current consumption during EEPROM Operation in Active mode is 916.8 μA  (Refer Fig 20).
+- Press Switch (SW0) to perform EEPROM Operation in Active mode and user needs to wait until the “Completed” text is displayed on terminal window, which indicates EEPROM Operation is completed.
+- Observe the average current consumption during EEPROM Operation in Active mode is 916.8 μA  (Refer Fig 10).
 
 ![power_analysis_active_eeprom](images/power_analysis_active_eeprom.jpg)
 
-*Figure 20: EEPROM Operation in Active mode*
+*Figure 10: EEPROM Operation in Active mode*
 
-* Observe the “Completed” text and next instruction to the user is displayed on terminal window (Refer Fig 21).
+- Observe the “Completed” text and next instruction to the user is displayed on terminal window (Refer Fig 11).
 
 ![power_analysis_active_2](images/power_analysis_active_2.jpg)
 
-*Figure 21: Power Analysis and Terminal window in Active mode*
+*Figure 11: Current Consumption and Terminal window in Active mode*
 
 **Doze mode (Doze ratio=1:8)**
 * Press Switch (SW0) to enter Doze mode with Doze ratio 1:8 and observe the text” Entered Doze mode 1:8” is displayed on terminal window after switch press and wait for the next instruction to be displayed on terminal window.
-* Observe the average current consumption in Doze mode with ratio 1:8 is 217.5 μA (Refer Fig 22).
+* Observe the average current consumption in Doze mode with ratio 1:8 is 228 μA (Refer Fig 12).
 
 ![power_analysis_doze8_1](images/power_analysis_doze8_1.jpg)
 
-*Figure 22: Power Analysis and Terminal window in Doze mode with 1:8 doze ratio*
+*Figure 12: Current Consumption and Terminal window in Doze mode with 1:8 doze ratio*
 
 **Doze mode (Doze ratio=1:8) – EEPROM Operation**
-* Press Switch (SW0) to perform EEPROM Operation in Doze mode with Doze ratio 1:8.
-* During EEPROM Operation , user needs  to wait to observe the text “Completed” on terminal window, which indicates EEPROM Operation is completed and within this time Switch press is not detected .The CPU and memory operate at only one instruction cycle out of the eight i.e. with reduced frequency (125kHz) compare to the frequency  used in the Active mode and rest of the peripherals operates at the system clock speed i.e. 1MHz frequency.
-* Observe the average current consumption during EEPROM Operation is 745.1 μA.
-* Once the EEPROM Operation is completed, user needs to wait for the next instruction to be displayed on terminal window (Refer Fig 23).
+- Press Switch (SW0) to perform EEPROM Operation in Doze mode with Doze ratio 1:8.
+- During EEPROM Operation , user needs  to wait to observe the text “Completed” on terminal window, which indicates EEPROM Operation is completed and within this time Switch press is not detected .The CPU and memory operate at only one instruction cycle out of the eight i.e. with reduced frequency (125kHz) compare to the frequency  used in the Active mode and rest of the peripherals operates at the system clock speed i.e. 1MHz frequency.
+- Observe the current plot during EEPROM Operation (Refer to Fig 13) 
+- Once the EEPROM Operation is completed, user needs to wait for furhter instructions to be displayed on terminal window 
 
 ![power_analysis_doze8_eeprom](images/power_analysis_doze8_eeprom.jpg)
 
-*Figure 23: EEPROM Operation in Doze mode with 1:8 doze ratio*
+*Figure 13: EEPROM Operation in Doze mode with 1:8 doze ratio*
 
-* Press Switch (SW0) to wake up from the Doze mode with ratio 1:8 and to enter Active mode and observe the text “Entered Active mode (Wakeup)” is displayed on terminal window.
-* Observe the current consumption in Active mode is 243.7 μA and wait until next instruction is displayed on terminal window (Refer Fig 24).
+- Press Switch (SW0) to wake up from the Doze mode with ratio 1:8 and to enter Active mode and observe the text “Entered Active mode (Wakeup)” is displayed on terminal window.
+- Observe the current consumption in Active mode is 255 μA and wait until next instruction is displayed on terminal window (Refer Fig 14).
 
 ![power_analysis_doze8_2](images/power_analysis_doze8_2.jpg)
 
-*Figure 24: Power Analysis and Terminal window in Doze mode with 1:8 doze ratio*
+-Figure 14: Current Consumption and Terminal window in Doze mode with 1:8 doze ratio*
 
 **Doze mode (Doze ratio=1:32)**
-* Press Switch (SW0) to enter Doze mode with Doze ratio 1:32 and observe the text” Entered Doze mode 1:32” is displayed on terminal window after switch press and wait for the next instruction to be displayed on terminal window.
-* Observe the average current consumption in Doze mode with ratio 1:32 is 214.8 μA (Refer Fig 25).
+- Press Switch (SW0) to enter Doze mode with Doze ratio 1:32 and observe the text” Entered Doze mode 1:32” is displayed on terminal window after switch press and wait for the next instruction to be displayed on terminal window.
+- Observe the current consumption in Doze mode with ratio 1:32 is 225 μA (Refer Fig 15).
 
 ![power_analysis_doze32_1](images/power_analysis_doze32_1.jpg)
 
-*Figure 25: Power Analysis and Terminal window in Doze mode with Doze ratio 1:32*
+*Figure 15: Current Consumption and Terminal window in Doze mode with Doze ratio 1:32*
 
 **Doze mode (Doze ratio=1:32) – EEPROM Operation**
-* Press Switch (SW0) to perform EEPROM Operation in Doze mode with Doze ratio 1:32.
-* During EEPROM Operation , user needs  to wait  to observe the text “Completed” on terminal window, which indicates EEPROM Operation is completed and within this time Switch press is not detected .The CPU and memory operate at only one instruction cycle out of 32  i.e. with reduced  frequency (31.2kHz) compared to the frequency used in the Doze mode with ratio 1:8 and rest of the peripherals operates at the system clock speed i.e. 1MHz frequency.
-* Observe the average current consumption during EEPROM Operation is 513.6 μA which is less than the current consumption in Doze mode with ratio 1:8.
-* Once the EEPROM Operation is completed, user needs to wait for the next instruction to be displayed on terminal window (Refer Fig 26).
+- Press Switch (SW0) to perform EEPROM Operation in Doze mode with Doze ratio 1:32.
+- During EEPROM Operation , user needs  to wait  to observe the text “Completed” on terminal window, which indicates EEPROM Operation is completed and within this time Switch press is not detected .The CPU and memory operate at only one instruction cycle out of 32  i.e. with reduced  frequency (31.2kHz) compared to the frequency used in the Doze mode with ratio 1:8 and rest of the peripherals operates at the system clock speed i.e. 1MHz frequency.
+- Observe the current consumption plot during EEPROM Operation which is less than the current consumption in Doze mode with ratio 1:8.
+- Once the EEPROM Operation is completed, user needs to wait for the next instruction to be displayed on terminal window (Refer Fig 16).
 
 ![power_analysis_doze32_eeprom](images/power_analysis_doze32_eeprom.jpg)
 
-*Figure 26: EEPROM operation in Doze mode with Doze ratio 1:32*
+*Figure 16: EEPROM operation in Doze mode with Doze ratio 1:32*
 
 * Press Switch (SW0) to wake up from the Doze mode with ratio 1:32 and to enter Active mode and observe the text “Entered Active mode (Wakeup)” is displayed on terminal window.
-* Observe the average current consumption in Active mode is 243.7 μA and wait until next instruction is displayed on terminal window (Refer Fig 27).
+* Observe the current consumption in Active mode and wait until next instruction is displayed on terminal window (Refer Fig 17).
 
 ![power_analysis_doze32_2](images/power_analysis_doze32_2.jpg)
 
-*Figure 27: Power Analysis and Terminal window in Doze mode with Doze ratio 1:32*
+*Figure 17: Current Consumption and Terminal window in Doze mode with Doze ratio 1:32*
 
 **Idle mode**
-* Press Switch (SW0) to enter Idle mode, observe the text “Entered IdleMode” is displayed on Terminal window and observe the average current consumption in Idle mode is 212.9 μA on Power Analysis window.
-* Wait for the next instruction to be displayed on terminal window (Refer Fig 28).
+- Press Switch (SW0) to enter Idle mode, observe the text “Entered IdleMode” is displayed on Terminal window and observe the average current consumption in Idle mode
+- Wait for the next instruction to be displayed on terminal window (Refer Fig 18).
 
 ![power_analysis_idle](images/power_analysis_idle.jpg)
 
-*Figure 28: Power Analysis and Terminal window in Idle mode*
+*Figure 18: Current Consumption in Idle mode*
 
-* Press Switch (SW0) to wake up from the Idle mode and enter Active mode (Refer Fig 29).
+- Press Switch (SW0) to wake up from the Idle mode and enter Active mode (Refer Fig 19).
 
 ![power_analysis_active_after_idle](images/power_analysis_active_after_idle.jpg)
 
-*Figure 29: Power Analysis and Terminal window in Active mode after waking from the Idle mode*
+*Figure 19: Current Consumption and Terminal window in Active mode after waking from the Idle mode*
 
 **Sleep mode**
-* Press Switch (SW0) to enter the Sleep mode, observe the text displayed on Terminal window and observe the average low current consumption 589.4 nA on Power Analysis window. In the sleep mode MCU consumes lowest current (Refer Fig 30).
+- Press Switch (SW0) to enter the Sleep mode, observe the text displayed on Terminal window and observe the average low current consumption. In sleep mode the MCU consumes the least current (Refer Fig 20).
 
 ![power_analysis_sleep](images/power_analysis_sleep.jpg)
 
-*Figure 30: Power Analysis and Terminal window in Sleep mode*
+*Figure 20: Current Consumption and Terminal window in Sleep mode*
 
-* Press Switch (SW0) to wake up from Sleep Mode and enter Active mode.  After waking up from the Sleep mode, MCU starts displaying the first instruction to the user (Refer Fig 31).
-
-![power_analysis_active_after_sleep](images/power_analysis_active_after_sleep.jpg)
-
-*Figure 31: Power Analysis and Terminal window in Active mode after waking from the Sleep mode*
+- Press Switch (SW0) to wake up from Sleep Mode and enter Active mode.  After waking up from the Sleep mode, MCU starts displaying the first instruction to the user
 
 # Conclusion
-This example demonstrates the configuration of various power down modes available in PIC18 Q10 MCUs. As demonstrated in the example, EEPROM Write and Read operations takes more current in Active mode as compared to Doze mode. In Doze mode current consumption depends upon the doze ratio selected. In PIC18 Q10 MCUs, Sleep mode is the lowest current mode where the MCU power consumption is minimum, as clock is disabled to CPU and all the other peripherals.
+This example demonstrates the configuration of various power down modes available in PIC18-Q10 MCUs. As demonstrated in the example, EEPROM Write and Read operations takes more current in Active mode as compared to Doze mode. In Doze mode current consumption depends upon the doze ratio selected. In PIC18-Q10 MCUs, Sleep mode is the lowest current mode where the MCU power consumption is minimum, as clock is disabled to CPU and all the other peripherals.
