@@ -79,7 +79,7 @@ With full program and debug capabilities, the PIC18F47Q10 Curiosity Nano evaluat
 
 Power Debugger is a powerful development tool used for debugging and programming AVR and SAM MCUs. The power debugger contains two channels for measuring power consumption, one channel is used for High-precision low-current measurement, while the second channel is used for Low-precision high-current measurement. In this example, Power Debugger with Channel A (High precision low-current measurement) is used in order to measure current consumption of the PIC18F47Q10 MCU and to transmit the measured data to Data Visualizer. For more details refer to the [Power Debugger User Guide](https://www.microchip.com/42696). Figure 3 shows the Power debugger.
 
-<img src="images/power_debugger.jpg" width="400">
+<img src="images/power_debugger.jpg">
 
 *Figure 3: Power Debugger*
 
@@ -165,7 +165,7 @@ There are two methods for Hardware connection.
 2. Cut the Power Target strap on PIC18F47Q10 Curiosity nano board and solder two wires on that VTG strap
 3. Connect the two soldered wires to the Channel A of the power debugger in series to measure current as shown in figure 13.
 
-<img src="images/connection_2.jpg" width="700">
+<img src="images/connection_2.jpg">
 
 *Figure 6: Current measurement using power debugger hardware connections*
 
